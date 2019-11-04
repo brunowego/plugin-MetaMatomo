@@ -34,7 +34,7 @@ class SelfEsteem extends \Piwik\Plugin
     public function addJsGlobalVariables(&$out) {
         $settings = new SystemSettings();
         $platform = $settings->platform->getValue();
-        $out .= "piwik.platform = '$platform[0]';\n";
+        $out .= "piwik.platform = '$platform';\n";
         $url = $settings->URL->getValue();
         $out .= "piwik.url = '$url';\n";
         $siteId = $settings->siteId->getValue();

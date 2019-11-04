@@ -38,9 +38,9 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     }
 
     private function createPlatformSetting() {
-        return $this->makeSetting('Platform', 'matomo', FieldConfig::TYPE_ARRAY, function (FieldConfig $field) {
+        return $this->makeSetting('Platform', 'matomo', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
             $field->title = 'Platform';
-            $field->uiControl = FieldConfig::UI_CONTROL_MULTI_SELECT;
+            $field->uiControl = FieldConfig::UI_CONTROL_SINGLE_SELECT;
             $field->availableValues = array('piwik' => 'Piwik', 'matomo' => 'Matomo');
             $field->description = '';
         });
