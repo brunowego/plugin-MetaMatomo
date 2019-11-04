@@ -1,0 +1,29 @@
+{
+  "name": "SelfEsteem",
+  "description": "Follow matomo's internal clickstream to learn how users use it. A.k.a. Metapiwik.",
+  "version": "0.0.1",
+  "theme": false,
+  "require": {
+    "piwik": ">=3.6.0,<4.0.0-b1",
+    "php": ">=7.0.0"
+  },
+  "authors": [
+    {
+      "name": "Bruno Wego",
+      "email": "brunowego@gmail.com",
+      "homepage": "http://brunowego.com"
+    }
+  ],
+  "support": {
+    "email": "brunowego@gmail.com",
+    "issues": "https://github.com/brunowego/plugin-SelfEsteem/issues",
+    "forum": "https://forum.matomo.org",
+    "source": "https://github.com/brunowego/plugin-SelfEsteem"
+  },
+  "homepage": "https://github.com/brunowego/plugin-SelfEsteem",
+  "license": "GPL v3+",
+  "keywords": [
+    "tracking",
+    "metapiwik"
+  ]
+}

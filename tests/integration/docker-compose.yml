@@ -1,0 +1,89 @@
+version: '3.6'
+
+x-matomo: &matomo
+  image: docker.io/library/matomo:3.11.0-fpm-alpine
+  volumes:
+    - type: volume
+      source: matomo-data
+      target: /var/www/html
+    - type: bind
+      source: ../../
+      target: /var/www/html/plugins/SelfEsteem
+  env_file: ./services/matomo/.env
+  networks:
+    - workbench
+
+services:
+  mysql:
+    image: docker.io/library/mysql:5.7.28
+    hostname: mysql
+    volumes:
+      - type: volume
+        source: mysql-data
+        target: /var/lib/mysql
+      - type: bind
+        source: ./services/mysql/docker-entrypoint-initdb.d
+        target: /docker-entrypoint-initdb.d
+    env_file: ./services/mysql/.env
+    ports:
+      - target: 3306
+        published: 3306
+        protocol: tcp
+    networks:
+      - workbench
+    restart: always
+
+  matomo:
+    <<: *matomo
+    hostname: matomo
+    restart: always
+    depends_on:
+      - mysql
+
+  matomo-activate-plugins:
+    <<: *matomo
+    user: www-data
+    entrypoint: |
+      /bin/sh -c '/bin/sh -s << EOF
+      while [ ! -f /var/www/html/config/config.ini.php ]; do sleep 30; done
+      /usr/local/bin/php /var/www/html/console plugin:activate SelfEsteem
+      EOF'
+    depends_on:
+      - matomo
+
+  nginx:
+    image: docker.io/library/nginx:1.17.5-alpine
+    hostname: nginx
+    volumes:
+      - type: bind
+        source: ./services/nginx/conf.d/default.conf
+        target: /etc/nginx/conf.d/default.conf
+      - type: volume
+        source: matomo-data
+        target: /var/www/html
+      - type: bind
+        source: ../../
+        target: /var/www/html/plugins/SelfEsteem
+    ports:
+      - target: 80
+        published: 8080
+        protocol: tcp
+    networks:
+      - workbench
+    restart: always
+    depends_on:
+      - matomo
+
+volumes:
+  mysql-data:
+    driver: local
+  matomo-data:
+    name: matomo-data
+    external: true
+  nginx-conf:
+    driver: local
+
+networks:
+  workbench:
+    name: workbench
+    external: true
