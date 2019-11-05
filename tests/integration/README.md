@@ -6,12 +6,6 @@
 [[ -f ./.env ]] || cp ./.example.env ./.env
 ```
 
-## Development
-
-```sh
-docker-compose exec -T matomo /usr/local/bin/php /var/www/html/console development:enable
-```
-
 ## Boot
 
 ```sh

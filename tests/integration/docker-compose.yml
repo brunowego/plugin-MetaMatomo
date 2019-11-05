@@ -46,6 +46,7 @@ services:
     entrypoint: |
       /bin/sh -c '/bin/sh -s << EOF
       while [ ! -f /var/www/html/config/config.ini.php ]; do sleep 30; done
+      /usr/local/bin/php /var/www/html/console development:enable
       /usr/local/bin/php /var/www/html/console plugin:activate SelfEsteem
       EOF'
     depends_on:
