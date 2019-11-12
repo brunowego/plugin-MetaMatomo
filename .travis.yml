@@ -1,0 +1,12 @@
+---
+language: minimal
+jobs:
+  include:
+    - stage: build
+      script: |
+        VERSION_TAG=${TRAVIS_TAG} make deploy/package
+    - stage: deploy
+      script: |
+        VERSION_TAG=${TRAVIS_TAG} REPO_SLUG=${TRAVIS_REPO_SLUG} make deploy/release
+      on:
+        tags: true
