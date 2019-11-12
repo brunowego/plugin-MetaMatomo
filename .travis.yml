@@ -1,11 +1,11 @@
 ---
 language: minimal
 script: |
-  VERSION_TAG=${TRAVIS_TAG:$TRAVIS_BUILD_ID} make deploy/package
+  VERSION_TAG="${TRAVIS_TAG:-$TRAVIS_BUILD_ID}" make deploy/package
 deploy:
   provider: script
   script: |
-    VERSION_TAG=${TRAVIS_TAG} REPO_SLUG=${TRAVIS_REPO_SLUG} make deploy/release
+    VERSION_TAG="${TRAVIS_TAG}" REPO_SLUG="${TRAVIS_REPO_SLUG}" make deploy/release
   on:
     branch: master
     tags: true
