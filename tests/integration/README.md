@@ -18,6 +18,15 @@ Open [Matomo](http://127.0.0.1:8080) dashboard.
 | --- | --- |
 | `admin` | `Pa$$w0rd!` |
 
+## Configuration
+
+1. Administration
+2. System -> General settings
+3. SelfEsteem
+   - Platform: Matomo/Piwik
+   - URL: [http://127.0.0.1:8080](http://127.0.0.1:8080)
+   - Site ID: 1
+
 ## Core Archive
 
 ```sh
